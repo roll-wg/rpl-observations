@@ -3,7 +3,7 @@
      which is available here: http://xml.resource.org. -->
 <!DOCTYPE rfc SYSTEM "rfc2629.dtd" [
 <!-- One method to get references from the online citation libraries.
-     There has to be one entity for each item to be referenced. 
+     There has to be one entity for each item to be referenced.
      An alternate method (rfc include) is described in the references. -->
 
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
@@ -24,16 +24,16 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-rahul-roll-rpl-observations-01" ipr="trust200902">
+<rfc category="std" docName="draft-rahul-roll-rpl-observations-latest" ipr="trust200902">
     <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
-     you can add the attributes updates="NNNN" and obsoletes="NNNN" 
+     you can add the attributes updates="NNNN" and obsoletes="NNNN"
      they will automatically be output with "(if approved)" -->
 
   <!-- ***** FRONT MATTER ***** -->
 
   <front>
-      <!-- The abbreviated title is used in the page header - it is only necessary if the 
+      <!-- The abbreviated title is used in the page header - it is only necessary if the
          full title is longer than 39 characters -->
 
     <title abbrev="RPL Observations">RPL Observations</title>
@@ -89,14 +89,14 @@
     <workgroup>ROLL</workgroup>
 
     <!-- WG name at the upperleft corner of the doc,
-         IETF is fine for individual submissions.  
+         IETF is fine for individual submissions.
      If this element is not present, the default is "Network Working Group",
          which is used by the RFC Editor as a nod to the history of the IETF. -->
 
     <keyword>RPL, 6lo, metrics, constraints</keyword>
 
     <abstract>
-        <t> 
+        <t>
             This document describes RPL protocol design issues, various
             observations and possible consequences of the design and
             implementation choices.
@@ -105,8 +105,18 @@
 </front>
 
 <middle>
+    <section title="Motivation">
+        <t>
+            The primary motivation for this draft is to enlist different issues
+            with RPL operation and invoke a discussion within the working
+            group. This draft by itself is not intended for RFC tracks but as a
+            WG discussion track. This draft may in turn result in other work
+            items taken up by the WG which may improvise on the issues
+            mentioned herewith.
+        </t>
+    </section>
     <section title="Introduction">
-        <t> 
+        <t>
             RPL <xref target="RFC6550"/> specifies a proactive distance-vector
             routing scheme designed for LLNs (Low Power and Lossy Networks).
             RPL enables the network to be formed as a DODAG and
@@ -177,7 +187,7 @@
             any clear mechanism on how the DTSN update should happen in case of
             storing mode.
         </t>
-        <t> 
+        <t>
             <figure align="center" anchor="sample_top" title="Sample
                 topology"> <artwork align="center"><![CDATA[
      (6LBR)
@@ -201,7 +211,7 @@
        /   \
       /     \
     (G)     (H)
-                    ]]></artwork> </figure> 
+                    ]]></artwork> </figure>
         </t>
         <t>
             Consider example topology shown in <xref target="sample_top"/>,
@@ -227,11 +237,11 @@
         <section title="Deliberations">
             <t>
                 <list style="format (%d)">
-                    <t> 
+                    <t>
                         In S-MOP, should the child nodes increment its DIO on
                         seeing that its preferred parent has updated its DTSN?
                     </t>
-                    <t> 
+                    <t>
                         What are rules for DTSN increment for storing MOP,
                         which multiple implementations can follow thus allowing
                         consistent performance across different
@@ -273,7 +283,7 @@
 (TgtNode)--------(6LR)-------(root)
            ACK          ACK
            <-2          <-4
-                    ]]></artwork> </figure> 
+                    ]]></artwork> </figure>
         </t>
         <t>
             <figure align="center" anchor="e2e_ack" title="End-to-End DAO-ACK">
@@ -283,7 +293,7 @@
 (TgtNode)--------(6LR)-------(root)
            ACK          ACK
            <-4          <-3
-                    ]]></artwork> </figure> 
+                    ]]></artwork> </figure>
         </t>
         <section title="Significance of bidirectional Path establishment
             indication and relevance of DAO-ACK">
@@ -331,7 +341,7 @@
                         How should an implementation interpret the DAO-ACK
                         semantics?
                     </t>
-                    <t> 
+                    <t>
                         What is the best way for the target node to know that
                         the end to end bidirectional path is successfully
                         installed or updated? In NS-MOP, the DAO-ACK provides a
@@ -427,7 +437,7 @@
             an useful tool and especially helps with link layer technologies
             that does not suffer from low MTUs such as PLC. Even if the
             implementation does not support aggregating targets, it should
-            atleast mandate reception of aggregated targets in DAO. 
+            atleast mandate reception of aggregated targets in DAO.
         </t>
         <t>
             RPL has a mechanism currently to ACK the DAO but it does not have a
@@ -692,11 +702,11 @@
         <section title="Deliberations">
             <t>
                 <list style="format (%d)">
-                    <t> 
+                    <t>
                         Is it possible that RPL reduces the use of persistent
                         storage for maintaining state information?
                     </t>
-                    <t> 
+                    <t>
                         In most cases, the node reboots will happen very rarely. Thus
                         doing a persistent storage book-keeping for handling node
                         reboot might not make sense. Is it possible to consider
