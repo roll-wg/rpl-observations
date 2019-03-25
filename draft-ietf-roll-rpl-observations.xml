@@ -549,6 +549,96 @@
         </section>
     </section>
 
+    <section title="Upgrades or Extensions to RPL protocol">
+        <t>
+            RPL extensibility is highly desirable and is controlled by protocol
+            elements within the messaging framework. In the pursuit to keep the
+            signalling overhead less, RPL specification has been restricting in
+            its approach to extend its field ranges, thus in some cases putting
+            extensibility at stakes. Consider for example, the mode of
+            operation bits which is three bits in the RPL specification. These
+            bits are already saturated and it may be difficult to add major
+            upgrades without extending these bits.
+        </t>
+        <section title="Handshaking optional node capabilities">
+            <t>
+                Currently there exist no mechanism to handshake optional
+                capabilities of the border router or 6LRs or 6LNs. Current MOP
+                deals with signalling mandatory set of primitives that needs to be
+                supported by all the 6LRs in the network. If a feature is optional
+                and is supported by 6LRs/6LNs then currently there exists no
+                mechanism to signal it. There are several RPL extension proposals
+                which are possibly optional features. Border router needs to know
+                if the 6LR/6LN supports these optional features to enable the
+                extension in that path context. Similarly 6LRs and 6LNs need to
+                know whether the border router supports certain extensions that
+                it can make use of.
+            </t>
+        </section>
+    </section>
+
+    <section title="Asymmetric Links and RPL">
+        <t>
+            Section 3.1 of <xref target="I-D.ietf-intarea-adhoc-wireless-com"/>
+            explains asymmetric link characteristics and what it takes for a
+            protocol to support asymmetric links. RPL depends on bi-directional
+            links for control even though near-perfect symmetry is not
+            expected. The implication of this is that the upstream and
+            downstream path remains same within a given RPL instance for any
+            pair of nodes. There are following questions sprouting of this design:
+
+            <list style="format (%d)">
+                <t>
+                    Is it possible to detect asymmetric links?
+                </t>
+                <t>
+                    In the presence of asymmetric links what is the impact on
+                    the control overhead and is there a way to possibly
+                    mitigate or alleviate any negative impact?
+                </t>
+            </list>
+        </t>
+        <t>
+            <xref target="I-D.ietf-roll-aodv-rpl"/> defines a mechanism to use
+            a pair of instances which are coupled. This allows disjoint
+            upstream and downstream paths between pair of nodes assuming that
+            the link asymmetricity is detected using some outside techniques.
+            The link assumes that the link asymmetricity is already known to
+            the nodes in the form of static configuration. In case of 6tisch
+            networks, the availability of transmission slots information can be
+            used to identify link asymmetricity. The challenge with regards to
+            detecting link asymmetricity arises from scenarios where, for
+            example, the nodes transmit with unequal power levels.
+        </t>
+    </section>
+
+    <!--
+    <section title="Link probing with RPL">
+        <t>
+            Local repair
+        </t>
+    </section>
+
+    <section title="Eliding repeatative fields in DIO">
+        <t>
+            lot of information in DIO is repeatative .. can we elide it ?
+        </t>
+    </section>
+
+    <section title="Nodes energy level">
+        <t>
+            Control plane to signal memory level, energy level,. Can we use existing routing metrics in DAO to signal such info?
+            In case of non-storing mode, the root can decide to balance paths based on such information.
+        </t>
+    </section>
+
+    <section title="Management interfaces">
+        <t>
+            Every time a new route is added/updated/deleted then we need a way to inform above layer.
+        </t>
+    </section>
+    -->
+
     <section title="Managing persistent variables across node reboots">
         <section title="Persistent storage and RPL state information">
             <t>
@@ -839,6 +929,8 @@
 
         <!-- Here we use entities that we defined at the beginning. -->
         <?rfc include="reference.I-D.clausen-lln-rpl-experiences.xml"?>
+        <?rfc include='reference.I-D.ietf-intarea-adhoc-wireless-com'?>
+        <?rfc include='reference.I-D.ietf-roll-aodv-rpl'?>
     </references>
 
     <section anchor="app-additional" title="Additional Stuff">
