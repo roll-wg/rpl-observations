@@ -24,7 +24,7 @@
 <?rfc subcompact="no" ?>
 <!-- keep one blank line between list items -->
 <!-- end of list of popular I-D processing instructions -->
-<rfc category="std" docName="draft-ietf-roll-rpl-observations-00" ipr="trust200902">
+<rfc category="std" docName="draft-ietf-roll-rpl-observations-latest" ipr="trust200902">
     <!-- category values: std, bcp, info, exp, and historic
      ipr values: full3667, noModification3667, noDerivatives3667
      you can add the attributes updates="NNNN" and obsoletes="NNNN"
@@ -38,7 +38,7 @@
 
     <title abbrev="RPL Observations">RPL Observations</title>
 
-    <author fullname="Rahul Arvind Jadhav" initials="R" role="editor" surname="Jadhav">
+    <author fullname="Rahul Arvind Jadhav" initials="R.A." role="editor" surname="Jadhav">
         <organization>Huawei</organization>
         <address>
             <postal>
@@ -80,21 +80,6 @@
             </postal>
             <phone>+86-15251896569</phone>
             <email>wuyuefeng@huawei.com</email>
-        </address>
-    </author>
-
-    <author fullname="Dacheng Zhang" initials="D" surname="Zhang">
-        <organization>Huawei</organization>
-        <address>
-            <postal>
-                <street>W Chang'an Ave</street>
-                <city>Beijing</city>
-                <region>Hebei</region>
-                <code>210012</code>
-                <country>China</country>
-            </postal>
-            <phone>+86-13621142434</phone>
-            <email>dacheng.zhang@huawei.com</email>
         </address>
     </author>
 
@@ -253,12 +238,12 @@
             <t>
                 <list style="format (%d)">
                     <t>
-                        In S-MOP, should the child nodes increment its DIO on
+                        In S-MOP, should the child node increment its DTSN on
                         seeing that its preferred parent has updated its DTSN?
                     </t>
                     <t>
-                        What are rules for DTSN increment for storing MOP,
-                        which multiple implementations can follow thus allowing
+                        What are rules for DTSN increment for S-MOP, which
+                        multiple implementations can follow thus allowing
                         consistent performance across different
                         implementations?
                     </t>
@@ -537,13 +522,6 @@
                         If the Transit Information container is sent, should
                         the handling of PathSequence be mandated?
                     </t>
-                    <t>
-                        The DEFAULT_DAO_DELAY of 1sec does not help much with
-                        aggregation. The upstream parent nodes should wait for
-                        more time then the child nodes so as to effectively
-                        aggregate. Can we have DEFAULT_DAO_DELAY a function of
-                        the level/rank the node is at?
-                    </t>
                 </list>
             </t>
         </section>
@@ -560,21 +538,6 @@
             bits are already saturated and it may be difficult to add major
             upgrades without extending these bits.
         </t>
-        <section title="Handshaking optional node capabilities">
-            <t>
-                Currently there exist no mechanism to handshake optional
-                capabilities of the border router or 6LRs or 6LNs. Current MOP
-                deals with signalling mandatory set of primitives that needs to be
-                supported by all the 6LRs in the network. If a feature is optional
-                and is supported by 6LRs/6LNs then currently there exists no
-                mechanism to signal it. There are several RPL extension proposals
-                which are possibly optional features. Border router needs to know
-                if the 6LR/6LN supports these optional features to enable the
-                extension in that path context. Similarly 6LRs and 6LNs need to
-                know whether the border router supports certain extensions that
-                it can make use of.
-            </t>
-        </section>
     </section>
 
     <section title="Asymmetric Links and RPL">
@@ -612,19 +575,67 @@
         </t>
     </section>
 
-    <!--
-    <section title="Link probing with RPL">
+    <section title="Adjacencies probing with RPL">
         <t>
-            Local repair
+            RPL avoids periodic hello messaging as compared to other
+            distance-vector protocols. It uses trickle timer based mechanism to
+            update configuration parameters. This significantly reduces the RPL
+            control overhead. One of the fallout of this design choice is that,
+            in the absence of regular traffic, the adjacencies could not be
+            tested and repaired if broken.
+        </t>
+        <t>
+            RPL provides a mechanism in the form of unicast DIS to query a
+            particular node for its DIO. A node receiving a unicast DIS MUST
+            respond with a unicast DIO with Configuration Option. This
+            mechanism could as well be made use of for probing adjacencies and
+            certain implementations such as Contiki uses this. The periodicity
+            of the probing is implementation dependent, but the node is
+            expected to invoke probing only when 
+            <list style="format (%d)">
+                <t>
+                    There is no data traffic based on which the links could be
+                    tested.
+                </t>
+                <t>
+                    There is no L2 feedback. In some case, L2 might provide
+                    periodic beacons at link layer and the absence of beacons
+                    could be used for link tests.
+                </t>
+            </list>
+        </t>
+        <section title="Deliberations">
+            <t>
+                <list style="format (%d)">
+                    <t>
+                        Should the probing scheme be standardized? In some
+                        cases using multicast based probing may prove
+                        advantageous.
+                    </t>
+                    <t>
+                        In some cases using multicast based probing may prove
+                        advantageous. Currently RPL does not have multicast
+                        based probing. Multicast DIS/DIO may not be suitable
+                        for probing because it could possibly lead to change of
+                        states.
+                    </t>
+                </list>
+            </t>
+        </section>
+    </section>
+
+    <section title="Control Options eliding mechanism in RPL">
+        <t>
+            RPL configuration changes are rare and thus various configuration
+            options may not change over a long period of time. RPL provides a way
+            for the configuration options to be elided but there are no clear
+            guidelines on how the eliding should be handled. In the absence of
+            such guidelines, it is possible that certain nodes may end up using
+            stale configuration in the event of transient link failures.
         </t>
     </section>
 
-    <section title="Eliding repeatative fields in DIO">
-        <t>
-            lot of information in DIO is repeatative .. can we elide it ?
-        </t>
-    </section>
-
+<!--
     <section title="Nodes energy level">
         <t>
             Control plane to signal memory level, energy level,. Can we use existing routing metrics in DAO to signal such info?
@@ -844,6 +855,63 @@
                 to the flash before using it in the messaging. If it is
                 done the other way, then the chances are that the node
                 power downs before writing to the persistent storage.
+            </t>
+        </section>
+    </section>
+
+    <section title="Capabilities and its role in RPL">
+        <t>
+            RPL is a distributed protocol and it requires that the
+            participating nodes agree on basic set of primitives to follow.
+            RPL currently handles this using MOP (Mode of Operation) bits
+            in the DIO. MOP bits inform the nodes the basic mode of operation a
+            node MUST support to join the Instance as a 6LR. The MOP is decided
+            and advertised by the root of the RPL Instance. A node not
+            supporting the given MOP may still join the Instance as a leaf node
+            or 6LN.
+        </t>
+        <t>
+            RPL further uses DIO Configuration Option to advertise the
+            configuration each node needs to use (for e.g., for trickle timer).
+        </t>
+        <section title="Handshaking node capabilities">
+            <t>
+                Currently there exist no mechanism to handshake capabilities of
+                the root or 6LRs or 6LNs. If a feature is optional and is
+                supported by 6LRs/6LNs then currently there exists no mechanism
+                to signal it. There are several RPL extension proposals which
+                are possibly optional features. Root needs to know if the
+                6LR/6LN supports these optional features to enable the
+                extension in that path context. Similarly 6LRs and 6LNs need to
+                know whether the root supports certain extensions that it can
+                make use of.
+            </t>
+        </section>
+        <section title="How do Capabilities differ from MOP and Configuration Option?">
+            <t>
+                Unlike MOP and Configuration Option which are issued by the
+                root of the Instance, Capabilities can be issued by any node. A
+                6LN/6LR node can advertise its capabilities such that those can be
+                seen by intermediate 6LRs and the root of the Instance.
+            </t>
+        </section>
+        <section title="Deliberations">
+            <t>
+                <list style="format (%d)">
+                    <t>
+                        Is it possible for leaf nodes to advertise their set of
+                        capabilities, which can be used by root and/or
+                        intermediate 6LRs to make run time decisions?
+                    </t>
+                    <t>
+                        How should these capabilities be carried? Should it be
+                        carried in DAO/DIO/DAO-ACK?
+                    </t>
+                    <t>
+                        Should the definition of capabilities be same in both
+                        directions (upstream/downstream)?
+                    </t>
+                </list>
             </t>
         </section>
     </section>
