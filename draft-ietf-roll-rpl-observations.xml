@@ -8,6 +8,7 @@
 
 <!ENTITY RFC2119 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.2119.xml">
 <!ENTITY RFC6550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6550.xml">
+<!ENTITY RFC6206 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6206.xml">
 <!ENTITY RFC6775 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6775.xml">
 <!ENTITY RFC6551 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6551.xml">
 <!ENTITY RFC6552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6552.xml">
@@ -380,6 +381,20 @@
                 ancestor.
             </t>
         </section>
+    </section>
+
+    <section title="Interpreting Trickle Timer Reset">
+        <t>
+            Trickle timer defines a mechanism to reset the timer. Trickle timer
+            reset is unlike regular periodic timers wherein the timer is
+            simply resetted to start again. Reset of trickle timer implies
+            resetting the trickle back to Imin and starting with a new interval
+            as mentioned in Section 4.2 of [RFC6206].
+            <!-- as mentioned in Section 4.2 of <xref target="RFC6206"/>. -->
+            Implementations MUST not restart the trickle timer to the
+            instantaneous value of I which could have been advanced over a
+            period of time.
+        </t>
     </section>
 
     <section title="Handling resource unavailability">
