@@ -124,7 +124,7 @@
             supports storing mode and non-storing mode of operations.
             Non-storing mode allows reduced memory resource usage on the nodes
             by allowing non-BR nodes to operate without managing a routing
-            table and involves use of source routing by the 6LBR to direct the
+            table and involves use of source routing by the Root to direct the
             traffic along a specific path. In storing mode of operation
             intermediate routers maintain routing tables.
         </t>
@@ -146,15 +146,6 @@
             Regardless, this draft is self-sufficient in a way that it does not
             expect to have read [clausen-draft].
         </t>
-        <!--
-        <t>
-            Some of the observations in the draft required experimentation.
-            Experiments were conducted in Whitefield [REF] to get measurements
-            and understand the impact using different open source IoT protocol
-            stacks such as Contiki [REF] and RIOT [REF] which provide
-            implementation of RPL.
-        </t>
-        -->
 
         <section title="Requirements Language and Terminology">
             <t>
@@ -430,18 +421,6 @@
             </t>
         </section>
     </section>
-
-    <!--
-    TODO: Not sure if this section helps the purpose! Not adding it now even
-    though i have the data.
-    <section title="RPL Control traffic observations">
-            <t>
-                Breakup of DIS, DIO, DAO traffic for RIOT, Contiki for the given networks.
-                Convergence times.
-                Difference in control traffic for RIOT and contiki
-            </t>
-    </section>
-    -->
 
     <section title="Handling aggregated targets">
         <t>
