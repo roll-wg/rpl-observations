@@ -378,7 +378,7 @@
         <t>
             Trickle timer defines a mechanism to reset the timer. Trickle timer
             reset is unlike regular periodic timers wherein the timer is
-            simply resetted to start again. Reset of trickle timer implies
+            simply reset to start again. Reset of trickle timer implies
             resetting the trickle back to Imin and starting with a new interval
             as mentioned in Section 4.2 of <xref target="RFC6206"/>.
         </t>
@@ -391,7 +391,7 @@
         </t>
         <t>
             The above figure shows an example of trickle intervals. An interval
-            is double that of previous interval size. Section 4.2. of <xref
+            is double that of the previous interval size. Section 4.2. of <xref
                 target="RFC6206"/> states that,
         </t>
         <t>
@@ -409,7 +409,7 @@
             inconsistent transmission then it does nothing.
         </t>
         <t>
-            In context to multicast DIS/DIO operation this implies that if the
+            In context to multicast DIS/DIO operation, this implies that if the
             DIO trickle timer is already at Imin and if the node hears a
             multicast DIS, then the timer does nothing. It MUST NOT reset the
             timer again in this case.
@@ -417,7 +417,7 @@
         <t>
             An implementation MUST never restart the timer within an interval.
             For e.g., in the above figure, if the timer is in interval I2, the
-            implementation MUST never restart the timer to the begining of
+            implementation MUST never restart the timer to the beginning of the
             current interval i.e., I2. If the timer is in interval T2 and if
             the reset is to be done then the interval is set back to Imin. If
             the timer is already in Imin, then the reset should do nothing.
