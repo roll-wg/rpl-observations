@@ -376,7 +376,7 @@
 
     <section title="Interpreting Trickle Timer">
         <t>
-            Trickle timer defines a mechanism to reset the timer. Trickle timer
+            Trickle algorithm defines a mechanism to reset the timer. Trickle timer
             reset is unlike regular periodic timers wherein the timer is
             simply reset to start again. Reset of trickle timer implies
             resetting the trickle back to Imin and starting with a new interval
