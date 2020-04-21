@@ -946,6 +946,30 @@
         </section>
     </section>
 
+    <section title="Backward Compatibility issues with RPL Options">
+        <t>
+            Most of the new work in ROLL requires addition of new control
+            options. Everytime a new control option is added, it is required
+            that all the nodes upgrade to support this option. In many cases,
+            the new specification declares using a Flag day to switch to the
+            new functionality.
+        </t>
+        <t>
+            New control options may not require mandatory handling on every
+            node but it requires at-least some processing. For e.g., assume
+            that a new control option is added to DIO message. The option does
+            not require any handling on the nodes not supporting it but it
+            requires at-least for these nodes to forward this new control
+            option downstream. Currently the new control option may be stripped
+            off.
+        </t>
+        <t>
+            It should be possible for the unknown control options to be copied
+            as-is to the downstream/upstream node(s). The specification
+            defining the new control option will decide whether a node should
+            strip-off or copy the unknown control option.
+        </t>
+    </section>
     <section title="RPL under-specification">
         <t>
             <list style="format (%c)">
