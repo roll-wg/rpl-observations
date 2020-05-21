@@ -84,7 +84,7 @@
         </address>
     </author>
 
-    <date year="2019" />
+    <date year="2020" />
     <!-- Meta-data Declarations -->
     <area>Routing</area>
     <workgroup>ROLL</workgroup>
@@ -346,7 +346,7 @@
                     </t>
                     <t>
                         How to selectively NACK subset of targets in case
-                        target containers are aggregated?
+                        target options are aggregated?
                     </t>
                 </list>
             </t>
@@ -471,7 +471,7 @@
         </t>
         <t>
             RPL has a mechanism currently to ACK the DAO but it does not have a
-            mechanism to ACK the target container. Thus in case of aggregated
+            mechanism to ACK the target option. Thus in case of aggregated
             targets in the DAO, if the subset of the targets fail then it is
             impossible for the DAO-ACK to signal this to the DAO sender.
         </t>
@@ -490,7 +490,7 @@
                     </t>
                     <t>
                         How to selectively NACK subset of targets in case
-                        target containers are aggregated?
+                        target options are aggregated?
                     </t>
                     <t>
                         The DEFAULT_DAO_DELAY of 1sec does not help much with
@@ -524,7 +524,7 @@
     <section title="RPL Transit Information in DAO">
         <t>
             RPL allows associating a target or set of targets with a Transit
-            information container which contains attributes for a path to one
+            Information Option which contains attributes for a path to one
             or more destinations identified by the set of targets. In case of
             NS-MOP, the transit Information will contain the all critical
             Parent Address which allows the common ancestor usually the root to
@@ -535,21 +535,21 @@
         </t>
         <t>
             RPL however does not mandate the use of Transit Information
-            container for targets.
+            Option for targets.
         </t>
         <section title="Deliberations">
             <t>
                 <list>
                     <t>
                         Is it ok to let implementations decide on the inclusion
-                        of Transit Information container?
+                        of Transit Information Option?
                     </t>
                     <t>
                         Is it possible to achieve interop without mandating use
-                        of Transit Information Container?
+                        of Transit Information Option?
                     </t>
                     <t>
-                        If the Transit Information container is sent, should
+                        If the Transit Information Option is sent, should
                         the handling of PathSequence be mandated?
                     </t>
                 </list>
@@ -567,6 +567,61 @@
             operation bits which is three bits in the RPL specification. These
             bits are already saturated and it may be difficult to add major
             upgrades without extending these bits.
+        </t>
+        <t>
+            Addition of new Control Options or new RPL Codes almost certainly
+            results in backward compatibility issues. RFC6550 clearly mentions
+            that a message with an unknown RPL Code MUST be silently discarded.
+            However, no explicit handling is suggested for unknown RPL control
+            option types. In some cases, implementations simply copy-forward an
+            unknown option as it is while in other cases the unknown option is
+            stripped off before forwarding the message.
+        </t>
+        <t>
+            Deliberations:
+            <list style="format (%d)">
+                <t>
+                    What are the extensibility options RPL could implement? How
+                    much overhead would it incur?
+                </t>
+                <t>
+                    Most of the extensions are in the form of new control
+                    options. Should RPL have a mechanism to only handle such
+                    extensions in a backward compatible but in a generic manner?
+                </t>
+            </list>
+        </t>
+    </section>
+
+    <section title="Path Control bits handling">
+        <t>
+            RPL uses Path Control bits in the DAO's Transit Information Option
+            for installing multiple downward routes to the nodes. These multiple
+            routes could be used for reliability, latency or traffic
+            load-balancing within a DAG. The path control bits are usable both
+            in storing and non-storing mode of operation.
+        </t>
+        <t>
+            RFC6550 Section 9.9 bullet point 9 requires a mandatory setting of
+            Path Control bits in all the unicast DAOs sent by the Target node.
+            However, no existing implementation of RPL supports this. There is
+            no reason for a network which only requires a single path to the
+            root to mandatorily support path control bits.
+        </t>
+        <t>
+            Deliberations:
+            <list style="format (%d)">
+                <t>
+                    Should the mandatory clause for supporting Path Control Bits
+                    in RFC6550 Section 9.9 point 9 be removed?
+                </t>
+                <t>
+                    Handling Path Control Bits may be complex. An implementation
+                    guideline explaining the use-cases and resource (memory
+                    requirements) assumptions would help implementors decide the
+                    utility of this technique.
+                </t>
+            </list>
         </t>
     </section>
 
@@ -849,7 +904,7 @@
             <t>
                 <list style="format (%d)">
                     <t>
-                        Is it possible that RPL reduces the use of persistent
+                        Is it possible that RPL removes the use of persistent
                         storage for maintaining state information?
                     </t>
                     <t>
@@ -975,15 +1030,16 @@
             <list style="format (%c)">
                 <t>
                     PathSequence: Is it mandatory to use PathSequence in DAO
-                    Transit container? RPL mentions that a 6LR/6LBR hosting the
-                    routing entry on behalf of target node should refresh the
-                    lifetime on reception of a new Path Sequence. But RPL does
+                    Transit Information Option? RPL mentions that a 6LR/6LBR
+                    hosting the routing entry on behalf of
+                    target node should refresh the lifetime
+                    on reception of a new Path Sequence. But RPL does
                     not necessarily mandate use of Path Sequence. Most of the
                     open source implementation [RIOT] [CONTIKI] currently do
                     not issue Path Sequence in the DAO message.
                 </t>
                 <t>
-                    Target Container aggregation in DAO: RPL allows multiple
+                    Target Option aggregation in DAO: RPL allows multiple
                     targets to be aggregated in a single DAO message and has
                     introduced a notion of DelayDAO using which a 6LR node
                     could delay its DAO to enable such aggregation. But RPL
