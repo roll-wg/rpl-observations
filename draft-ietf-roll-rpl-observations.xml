@@ -10,9 +10,6 @@
 <!ENTITY RFC6550 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6550.xml">
 <!ENTITY RFC6206 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6206.xml">
 <!ENTITY RFC6775 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6775.xml">
-<!ENTITY RFC6551 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6551.xml">
-<!ENTITY RFC6552 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6552.xml">
-<!ENTITY RFC6997 SYSTEM "http://xml.resource.org/public/rfc/bibxml/reference.RFC.6997.xml">
 ]>
 <?xml-stylesheet type='text/xsl' href='rfc2629.xslt' ?>
 <?rfc strict="yes" ?>
@@ -40,32 +37,29 @@
     <title abbrev="RPL Observations">RPL Observations</title>
 
     <author fullname="Rahul Arvind Jadhav" initials="R.A." role="editor" surname="Jadhav">
-        <organization>Huawei</organization>
         <address>
             <postal>
-                <street>Kundalahalli Village, Whitefield,</street>
+                <street>Marathahalli</street>
                 <city>Bangalore</city>
                 <region>Karnataka</region>
                 <code>560037</code>
                 <country>India</country>
             </postal>
-            <phone>+91-080-49160700</phone>
             <email>rahul.ietf@gmail.com</email>
         </address>
     </author>
 
     <author fullname="Rabi Narayan Sahoo" initials="R.N." surname="Sahoo">
-        <organization>Huawei</organization>
+        <organization>Juniper</organization>
         <address>
             <postal>
-                <street>Kundalahalli Village, Whitefield, </street>
+                <street>Whitefield</street>
                 <city>Bangalore</city>
                 <region>Karnataka</region>
                 <code>560037</code>
                 <country>India</country>
             </postal>
-            <phone>+91-080-49160700</phone>
-            <email>rabinarayans@huawei.com</email>
+            <email>rabinarayans0828@gmail.com</email>
         </address>
     </author>
 
@@ -385,8 +379,8 @@
         <t>
             <figure align="center" anchor="trickle" title="Trickle Timer Operation">
                 <artwork align="center"><![CDATA[
-|----|--------|----------------|--------------------------------| . . . . . .
- Imin   I2             I3                       I4                       I5
+|----|--------|----------------|------------------------------| . . . .
+ Imin   I2             I3                     I4                    I5
                     ]]></artwork> </figure>
         </t>
         <t>
@@ -1087,10 +1081,7 @@
         &RFC2119;
         &RFC6550;
         &RFC6206;
-        &RFC6551;
-        &RFC6552;
         &RFC6775;
-        &RFC6997;
 
     </references>
 
@@ -1108,8 +1099,8 @@
 
         <!-- Here we use entities that we defined at the beginning. -->
         <?rfc include="reference.I-D.clausen-lln-rpl-experiences.xml"?>
-        <?rfc include='reference.I-D.ietf-intarea-adhoc-wireless-com'?>
-        <?rfc include='reference.I-D.ietf-roll-aodv-rpl'?>
+        <?rfc include='reference.I-D.ietf-intarea-adhoc-wireless-com.xml'?>
+        <?rfc include='reference.I-D.ietf-roll-aodv-rpl.xml'?>
     </references>
 
     <section anchor="app-additional" title="Additional Stuff">
