@@ -670,7 +670,7 @@
             mechanism could as well be made use of for probing adjacencies and
             certain implementations such as Contiki uses this. The periodicity
             of the probing is implementation dependent, but the node is
-            expected to invoke probing only when 
+            expected to invoke probing only when
             <list style="format (%d)">
                 <t>
                     There is no data traffic based on which the links could be
